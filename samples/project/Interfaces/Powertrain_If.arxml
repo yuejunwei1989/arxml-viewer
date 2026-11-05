@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>Powertrain</SHORT-NAME>
+      <ELEMENTS>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>EngineSpeed_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>EngineSpeed</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>EngineSpeedValid</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>ThrottlePosition_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>ThrottlePosition</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>GearPosition_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>Gear</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

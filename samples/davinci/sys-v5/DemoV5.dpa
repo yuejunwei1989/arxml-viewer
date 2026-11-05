@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DaVinciProject>
+	<ProjectName>DemoV5</ProjectName>
+	<ToolSettings>
+		<Input>
+			<InputFiles>
+				Config/ApplicationComponents/BodyControl.arxml
+			</InputFiles>
+			<Folders>
+				<Folder>Config/ApplicationComponents</Folder>
+				<Folder>Config/System</Folder>
+			</Folders>
+		</Input>
+	</ToolSettings>
+</DaVinciProject>

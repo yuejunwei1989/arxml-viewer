@@ -1,0 +1,209 @@
+{
+  "name": "arxml-swc-viewer",
+  "displayName": "AUTOSAR ARXML SWC Viewer",
+  "description": "Parse AUTOSAR ARXML files and display Software Component (SWC) port connections as tables / diagrams.",
+  "version": "0.7.0",
+  "publisher": "arxml-tools",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arxml-tools/arxml-swc-viewer"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "autosar",
+    "arxml",
+    "swc",
+    "software component",
+    "ecu"
+  ],
+  "activationEvents": [
+    "onLanguage:arxml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "arxml",
+        "aliases": [
+          "AUTOSAR XML",
+          "arxml"
+        ],
+        "extensions": [
+          ".arxml"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "dvproject",
+        "aliases": [
+          "DaVinci Project",
+          "dcf",
+          "dpa",
+          "dvjson"
+        ],
+        "extensions": [
+          ".dcf",
+          ".dpa",
+          ".dvjson"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "arxmlSwc.openDaVinciProject",
+        "title": "Open Vector DaVinci Project (parse its SWCs)",
+        "category": "ARXML",
+        "icon": "$(project)"
+      },
+      {
+        "command": "arxmlSwc.showTableView",
+        "title": "Open SWC Connection View",
+        "category": "ARXML",
+        "icon": "$(table)"
+      },
+      {
+        "command": "arxmlSwc.exportCsv",
+        "title": "Export Connections as CSV",
+        "category": "ARXML",
+        "icon": "$(export)"
+      },
+      {
+        "command": "arxmlSwc.showProjectView",
+        "title": "Open in Project Mode (merge all ARXML in folder/workspace)",
+        "category": "ARXML",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "arxmlSwc.refresh",
+        "title": "Refresh SWC View",
+        "category": "ARXML",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "arxmlSwc.showTableView",
+          "when": "resourceExtname == .arxml",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "arxmlSwc.openDaVinciProject",
+          "when": "resourceFilename =~ /\\.(dcf|dpa|dvjson)$/",
+          "group": "arxml@0"
+        },
+        {
+          "command": "arxmlSwc.showTableView",
+          "when": "resourceExtname == .arxml",
+          "group": "arxml@1"
+        },
+        {
+          "command": "arxmlSwc.showProjectView",
+          "when": "resourceExtname == .arxml",
+          "group": "arxml@0"
+        },
+        {
+          "command": "arxmlSwc.exportCsv",
+          "when": "resourceExtname == .arxml",
+          "group": "arxml@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ARXML SWC Viewer",
+      "properties": {
+        "arxmlSwc.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Short names to ignore while parsing (regex, e.g. ^_TMP_)."
+        },
+        "arxmlSwc.showUnconnectedPorts": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show unconnected ports in the port table."
+        },
+        "arxmlSwc.projectMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Parse the whole project (all .arxml in the folder or workspace) by default instead of only the current file."
+        },
+        "arxmlSwc.projectScope": {
+          "type": "string",
+          "enum": [
+            "folder",
+            "workspace"
+          ],
+          "default": "folder",
+          "description": "Project mode scope: folder = directory of the current file, workspace = all workspace folders."
+        },
+        "arxmlSwc.projectIgnore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/out/**",
+            "**/dist/**"
+          ],
+          "description": "Path globs ignored while scanning in project mode."
+        },
+        "arxmlSwc.daVinciAutoDetect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically parse the SWCs of a project when opening a .dcf/.dpa/.dvjson file."
+        }
+      }
+    },
+    "customEditors": [
+      {
+        "viewType": "arxmlSwc.tableView",
+        "displayName": "SWC Connection View",
+        "selector": [
+          {
+            "filenamePattern": "*.arxml"
+          },
+          {
+            "filenamePattern": "*.dcf"
+          },
+          {
+            "filenamePattern": "*.dpa"
+          },
+          {
+            "filenamePattern": "*.dvjson"
+          }
+        ],
+        "priority": "option"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "tsc --noEmit -p ./",
+    "test": "node out/test/runTests.js && node out/test/projectTests.js && node out/test/davinciTests.js && node out/test/interfaceTests.js && node out/test/runnableTests.js",
+    "package": "npx --yes @vscode/vsce package --allow-missing-repository --skip-license",
+    "bench": "node out/test/bench.js"
+  },
+  "dependencies": {
+    "saxes": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  }
+}

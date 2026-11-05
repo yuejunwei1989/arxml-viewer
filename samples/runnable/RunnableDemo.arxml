@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Internal behavior / runnable sample.
+
+  Covers every trigger flavour the viewer understands:
+    TIMING-EVENT                 periodic trigger
+    DATA-RECEIVED-EVENT          S/R data received
+    OPERATION-INVOKED-EVENT      C/S operation invoked
+    SWC-MODE-SWITCH-EVENT        mode switch
+    INIT-EVENT                   initialisation
+  plus CAN-ENTER / RUNS-ON / MINIMUM-START-INTERVAL.
+-->
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>RunnableDemo</SHORT-NAME>
+      <ELEMENTS>
+
+        <APPLICATION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>SpeedCtrl</SHORT-NAME>
+          <PORTS>
+            <R-PORT-PROTOTYPE>
+              <SHORT-NAME>VehicleSpeed_P</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/RunnableDemo/VehicleSpeed_I</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE>
+              <SHORT-NAME>TargetSpeed_P</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/RunnableDemo/VehicleSpeed_I</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE>
+              <SHORT-NAME>Diag_P</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/RunnableDemo/Diag_I</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+          </PORTS>
+          <INTERNAL-BEHAVIORS>
+            <SWC-INTERNAL-BEHAVIOR>
+              <SHORT-NAME>SpeedCtrl_Behavior</SHORT-NAME>
+              <EVENTS>
+                <TIMING-EVENT>
+                  <SHORT-NAME>TimingEvent_10ms</SHORT-NAME>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/RunnableDemo/SpeedCtrl/SpeedCtrl_Behavior/Runnable_10ms</START-ON-EVENT-REF>
+                  <PERIOD>0.01</PERIOD>
+                </TIMING-EVENT>
+                <DATA-RECEIVED-EVENT>
+                  <SHORT-NAME>VehicleSpeedReceived</SHORT-NAME>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/RunnableDemo/SpeedCtrl/SpeedCtrl_Behavior/Runnable_OnSpeed</START-ON-EVENT-REF>
+                  <DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/RunnableDemo/SpeedCtrl/VehicleSpeed_P/VehicleSpeed</DATA-ELEMENT-REF>
+                </DATA-RECEIVED-EVENT>
+                <OPERATION-INVOKED-EVENT>
+                  <SHORT-NAME>DiagInvoked</SHORT-NAME>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/RunnableDemo/SpeedCtrl/SpeedCtrl_Behavior/Runnable_OnDiag</START-ON-EVENT-REF>
+                  <OPERATION-REF DEST="CLIENT-SERVER-OPERATION">/RunnableDemo/SpeedCtrl/Diag_P/ReadFault</OPERATION-REF>
+                </OPERATION-INVOKED-EVENT>
+                <SWC-MODE-SWITCH-EVENT>
+                  <SHORT-NAME>ModeChanged</SHORT-NAME>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/RunnableDemo/SpeedCtrl/SpeedCtrl_Behavior/Runnable_OnMode</START-ON-EVENT-REF>
+                  <ON-TRANSITION>0</ON-TRANSITION>
+                </SWC-MODE-SWITCH-EVENT>
+                <INIT-EVENT>
+                  <SHORT-NAME>Init</SHORT-NAME>
+                  <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/RunnableDemo/SpeedCtrl/SpeedCtrl_Behavior/Runnable_Init</START-ON-EVENT-REF>
+                </INIT-EVENT>
+              </EVENTS>
+              <RUNNABLES>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>Runnable_10ms</SHORT-NAME>
+                  <CAN-ENTER>true</CAN-ENTER>
+                  <MINIMUM-START-INTERVAL>0.01</MINIMUM-START-INTERVAL>
+                  <RUNS-ON-REF DEST="RUNS-ON-PROVIDER">/AUTOSAR_Platform/RunsOn/RTE</RUNS-ON-REF>
+                  <SYMBOL>Rte_Runnable_SpeedCtrl_10ms</SYMBOL>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>Runnable_OnSpeed</SHORT-NAME>
+                  <CAN-ENTER>true</CAN-ENTER>
+                  <RUNS-ON-REF DEST="RUNS-ON-PROVIDER">/AUTOSAR_Platform/RunsOn/RTE</RUNS-ON-REF>
+                  <SYMBOL>Rte_Runnable_SpeedCtrl_OnSpeed</SYMBOL>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>Runnable_OnDiag</SHORT-NAME>
+                  <CAN-ENTER>false</CAN-ENTER>
+                  <RUNS-ON-REF DEST="RUNS-ON-PROVIDER">/AUTOSAR_Platform/RunsOn/RTE</RUNS-ON-REF>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>Runnable_OnMode</SHORT-NAME>
+                  <CAN-ENTER>true</CAN-ENTER>
+                  <RUNS-ON-REF DEST="RUNS-ON-PROVIDER">/AUTOSAR_Platform/RunsOn/SCHM</RUNS-ON-REF>
+                </RUNNABLE-ENTITY>
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>Runnable_Init</SHORT-NAME>
+                  <CAN-ENTER>true</CAN-ENTER>
+                  <RUNS-ON-REF DEST="RUNS-ON-PROVIDER">/AUTOSAR_Platform/RunsOn/RTE</RUNS-ON-REF>
+                </RUNNABLE-ENTITY>
+                <!-- declared with no activation path at all -->
+                <RUNNABLE-ENTITY>
+                  <SHORT-NAME>Runnable_Orphan</SHORT-NAME>
+                  <CAN-ENTER>true</CAN-ENTER>
+                  <RUNS-ON-REF DEST="RUNS-ON-PROVIDER">/AUTOSAR_Platform/RunsOn/RTE</RUNS-ON-REF>
+                </RUNNABLE-ENTITY>
+              </RUNNABLES>
+            </SWC-INTERNAL-BEHAVIOR>
+          </INTERNAL-BEHAVIORS>
+        </APPLICATION-SW-COMPONENT-TYPE>
+
+        <!-- a component without any internal behavior -->
+        <APPLICATION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>Passive</SHORT-NAME>
+        </APPLICATION-SW-COMPONENT-TYPE>
+
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>VehicleSpeed_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>VehicleSpeed</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+
+        <CLIENT-SERVER-INTERFACE>
+          <SHORT-NAME>Diag_I</SHORT-NAME>
+          <OPERATIONS>
+            <CLIENT-SERVER-OPERATION>
+              <SHORT-NAME>ReadFault</SHORT-NAME>
+            </CLIENT-SERVER-OPERATION>
+          </OPERATIONS>
+        </CLIENT-SERVER-INTERFACE>
+
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

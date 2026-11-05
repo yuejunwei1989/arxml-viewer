@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DCF ARSCHEMA="40R2_DEV">
+	<Version>1.0</Version>
+	<NAME>DemoWorkspace</NAME>
+	<PROFILESETTINGS>ProfileSettings.xml</PROFILESETTINGS>
+	<FILEREF>
+		<ARXML ROOTITEM="COMPONENTTYPE" TYPE="">ECUProjects/LightControl_SWC.arxml</ARXML>
+		<DVG>ECUProjects/LightControl_SWC.dvg</DVG>
+	</FILEREF>
+	<FILEREF>
+		<ARXML ROOTITEM="PORTINTERFACE" TYPE="">ECUProjects/LightControl_If.arxml</ARXML>
+	</FILEREF>
+	<FILEREF>
+		<ARXML ROOTITEM="COMPONENTTYPE" TYPE="">ECUProjects/LightComposition.arxml</ARXML>
+	</FILEREF>
+	<FILEREF>
+		<ARXML ROOTITEM="DATATYPE" TYPE="">ECUProjects/MissingTypes.arxml</ARXML>
+	</FILEREF>
+</DCF>

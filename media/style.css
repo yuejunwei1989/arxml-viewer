@@ -1,0 +1,864 @@
+:root {
+  --gap: 10px;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--vscode-font-family, -apple-system, "Segoe UI", sans-serif);
+  font-size: var(--vscode-font-size, 13px);
+  color: var(--vscode-foreground);
+  background: var(--vscode-editor-background);
+  padding: 0 0 24px;
+}
+
+/* ---------------- header ---------------- */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--vscode-editor-background);
+  border-bottom: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.28));
+}
+
+.hdr-left {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.filename {
+  font-weight: 600;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  font-size: 11px;
+  opacity: 0.65;
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+}
+
+.hdr-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search,
+.select {
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, rgba(128, 128, 128, 0.4));
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  outline: none;
+}
+
+.search {
+  width: 240px;
+}
+
+.search:focus,
+.select:focus {
+  border-color: var(--vscode-focusBorder);
+}
+
+.btn {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--vscode-foreground);
+  border: 1px solid rgba(128, 128, 128, 0.4);
+}
+
+.btn.ghost:hover {
+  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.15));
+}
+
+/* ---------------- stats ---------------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: var(--gap);
+  padding: 12px 14px 0;
+}
+
+.stat {
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  background: var(--vscode-editorWidget-background, transparent);
+}
+
+.stat.warn {
+  border-color: var(--vscode-editorWarning-foreground, #cca700);
+}
+
+.stat-v {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-k {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* ---------------- tabs ---------------- */
+.tabs {
+  display: flex;
+  gap: 2px;
+  padding: 12px 14px 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.28);
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--vscode-foreground);
+  opacity: 0.7;
+  padding: 7px 12px;
+  font-size: 12.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab:hover {
+  opacity: 1;
+}
+
+.tab.active {
+  opacity: 1;
+  border-bottom-color: var(--vscode-focusBorder, #007acc);
+  font-weight: 600;
+}
+
+.tab .count {
+  font-size: 10.5px;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.22);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- table ---------------- */
+.panel {
+  padding: 0 14px;
+}
+
+.table-wrap {
+  margin-top: 12px;
+  overflow: auto;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: var(--radius);
+  max-height: calc(100vh - 240px);
+}
+
+table.grid {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12.5px;
+}
+
+table.grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11.5px;
+  padding: 8px 10px;
+  white-space: nowrap;
+  background: var(--vscode-editorWidget-background, #252526);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+table.grid thead th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+table.grid thead th.sortable:hover {
+  color: var(--vscode-textLink-foreground, #3794ff);
+}
+
+table.grid thead th.sorted {
+  color: var(--vscode-textLink-foreground, #3794ff);
+}
+
+table.grid tbody td {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.14);
+  vertical-align: middle;
+}
+
+table.grid tbody tr:hover {
+  background: var(--vscode-list-hoverBackground, rgba(128, 128, 128, 0.1));
+}
+
+table.grid tbody tr.row-warn td:first-child {
+  box-shadow: inset 3px 0 0 var(--vscode-editorWarning-foreground, #cca700);
+}
+
+table.grid tbody tr.row-dim {
+  opacity: 0.6;
+}
+
+td.cell-comp .comp {
+  font-weight: 600;
+}
+
+td.arrow {
+  text-align: center;
+  opacity: 0.5;
+  width: 24px;
+  padding: 0 !important;
+}
+
+td.itf {
+  font-size: 11.5px;
+  opacity: 0.85;
+  font-family: var(--vscode-editor-font-family, monospace);
+}
+
+td.de {
+  font-size: 11.5px;
+  opacity: 0.8;
+  max-width: 220px;
+}
+
+td.num,
+th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+td.pkg {
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+td.links {
+  font-size: 11.5px;
+  max-width: 320px;
+}
+
+code {
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 11.5px;
+  background: rgba(128, 128, 128, 0.14);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.type {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.muted {
+  opacity: 0.45;
+}
+
+button.copy {
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  color: inherit;
+  border-radius: 3px;
+  padding: 1px 7px;
+  font-size: 10.5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+button.copy:hover {
+  opacity: 1;
+  border-color: var(--vscode-focusBorder);
+}
+
+/* ---------------- badges ---------------- */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 15px;
+  padding: 0 5px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.b-provides {
+  background: rgba(56, 160, 92, 0.22);
+  color: #4ec97a;
+}
+
+.b-requires {
+  background: rgba(80, 140, 220, 0.22);
+  color: #6da8f0;
+}
+
+.b-assembly {
+  background: rgba(140, 140, 140, 0.2);
+  color: inherit;
+  opacity: 0.9;
+}
+
+.b-delegate {
+  background: rgba(190, 140, 230, 0.24);
+  color: #c08ce8;
+}
+
+.b-ok {
+  background: rgba(56, 160, 92, 0.2);
+  color: #4ec97a;
+}
+
+.b-warn {
+  background: rgba(204, 167, 0, 0.22);
+  color: #d8b120;
+}
+
+.b-neutral {
+  background: rgba(140, 140, 140, 0.18);
+  color: inherit;
+  opacity: 0.75;
+}
+
+/* interface / data type specific badges */
+.b-sr {
+  background: rgba(80, 140, 220, 0.22);
+  color: #6da8f0;
+}
+
+.b-cs {
+  background: rgba(230, 150, 60, 0.22);
+  color: #e09a4a;
+}
+
+.b-service {
+  background: rgba(190, 140, 230, 0.24);
+  color: #c08ce8;
+}
+
+.b-apdt {
+  background: rgba(56, 160, 92, 0.2);
+  color: #4ec97a;
+}
+
+.b-record {
+  background: rgba(80, 140, 220, 0.2);
+  color: #6da8f0;
+}
+
+.b-array {
+  background: rgba(230, 150, 60, 0.2);
+  color: #e09a4a;
+}
+
+.b-idt {
+  background: rgba(140, 140, 140, 0.22);
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* ---------------- type pills ---------------- */
+td.types {
+  max-width: 460px;
+  line-height: 1.7;
+}
+
+td.types .pill {
+  display: inline-block;
+  margin: 1px 4px 1px 0;
+  padding: 0 6px;
+  font-size: 10.5px;
+  line-height: 16px;
+  border-radius: 9px;
+  background: rgba(128, 128, 128, 0.16);
+  white-space: nowrap;
+}
+
+td.types .pill b {
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+td.members,
+td.base,
+td.range {
+  font-size: 11.5px;
+  max-width: 340px;
+  overflow-wrap: anywhere;
+}
+
+td.range code {
+  font-size: 10.5px;
+}
+
+/* ---------------- matrix ---------------- */
+.matrix-wrap {
+  margin-top: 12px;
+  overflow: auto;
+  max-height: calc(100vh - 240px);
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: var(--radius);
+}
+
+table.matrix {
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-size: 11px;
+  padding: 8px;
+}
+
+table.matrix th {
+  font-weight: 600;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+table.matrix th.corner {
+  text-align: left;
+  opacity: 0.6;
+  padding-right: 8px;
+}
+
+table.matrix th.rot {
+  height: 96px;
+  width: 26px;
+  padding: 0;
+  vertical-align: bottom;
+}
+
+table.matrix th.rot span {
+  display: inline-block;
+  transform: rotate(-62deg) translateX(14px);
+  transform-origin: bottom left;
+  white-space: nowrap;
+  font-size: 10.5px;
+  opacity: 0.85;
+}
+
+table.matrix th.rowhead {
+  text-align: right;
+  padding-right: 8px;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+table.matrix td {
+  width: 30px;
+  height: 26px;
+  text-align: center;
+  border-radius: 3px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+table.matrix td.miss {
+  background: rgba(128, 128, 128, 0.07);
+  color: rgba(128, 128, 128, 0.5);
+  font-weight: 400;
+}
+
+table.matrix td.hit {
+  background: rgba(56, 140, 220, 0.55);
+  color: #fff;
+  cursor: help;
+}
+
+table.matrix td.hit:hover {
+  background: rgba(56, 140, 220, 0.85);
+  outline: 1px solid var(--vscode-focusBorder);
+}
+
+/* ---------------- misc ---------------- */
+.table-foot {
+  padding: 8px 2px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.empty {
+  padding: 48px 0;
+  text-align: center;
+  opacity: 0.55;
+  font-size: 13px;
+}
+
+.error-box {
+  margin: 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--vscode-editorError-foreground, #f14c4c);
+  border-radius: var(--radius);
+  background: rgba(241, 76, 76, 0.08);
+}
+
+.error-box h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--vscode-editorError-foreground, #f14c4c);
+}
+
+.error-box p {
+  margin: 0 0 12px;
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.error-box button {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .search {
+    width: 140px;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------------- project mode ---------------- */
+.proj-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: rgba(120, 90, 220, 0.22);
+  color: #b6a2f5;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+td.file-cell {
+  font-size: 11px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+a.file-link {
+  color: var(--vscode-textLink-foreground, #3794ff);
+  text-decoration: none;
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 11px;
+}
+
+a.file-link:hover {
+  text-decoration: underline;
+}
+
+.sub {
+  font-size: 10px;
+  opacity: 0.5;
+  font-family: var(--vscode-editor-font-family, monospace);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+.b-error {
+  background: rgba(241, 76, 76, 0.2);
+  color: #f14c4c;
+}
+
+td.code {
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 10.5px;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+td.msg {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+td.files {
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+td.err {
+  font-size: 10.5px;
+  color: var(--vscode-editorError-foreground, #f14c4c);
+  max-width: 260px;
+}
+
+/* ---------------- DaVinci project banner ---------------- */
+.dv-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: rgba(0, 150, 136, 0.22);
+  color: #4dd0c4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.dv-banner {
+  margin: 10px 14px 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 150, 136, 0.3);
+  border-left: 3px solid rgba(0, 150, 136, 0.7);
+  border-radius: var(--radius);
+  background: rgba(0, 150, 136, 0.06);
+  font-size: 11.5px;
+}
+
+.dv-row {
+  display: flex;
+  gap: 10px;
+  padding: 2px 0;
+  line-height: 1.5;
+}
+
+.dv-k {
+  flex: 0 0 76px;
+  opacity: 0.65;
+  font-size: 11px;
+}
+
+.dv-v {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+}
+
+code.path {
+  font-size: 10.5px;
+  opacity: 0.85;
+  background: rgba(128, 128, 128, 0.12);
+  padding: 0 4px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+
+/* ---------------- runnable triggers ---------------- */
+.b-timing {
+  background: rgba(80, 140, 220, 0.22);
+  color: #6da8f0;
+}
+
+.b-data {
+  background: rgba(56, 160, 92, 0.22);
+  color: #4ec97a;
+}
+
+.b-op {
+  background: rgba(230, 150, 60, 0.22);
+  color: #e09a4a;
+}
+
+.b-mode {
+  background: rgba(190, 140, 230, 0.24);
+  color: #c08ce8;
+}
+
+.b-init {
+  background: rgba(120, 180, 190, 0.22);
+  color: #6fbcc9;
+}
+
+td.trig {
+  min-width: 240px;
+  line-height: 1.8;
+}
+
+td.trig .trig-detail {
+  font-size: 11px;
+  opacity: 0.72;
+  margin-top: 2px;
+  font-family: var(--vscode-editor-font-family);
+}
+
+td.interval code,
+td.symbols code {
+  font-size: 10.5px;
+  overflow-wrap: anywhere;
+}
+
+td.ports {
+  font-family: var(--vscode-editor-font-family);
+  font-size: 11px;
+}
+
+.warn-text {
+  color: #d8b120;
+}
+
+/* ---------------- SWC detail page ---------------- */
+a.comp-link,
+a.comp-link:visited {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(128, 128, 128, 0.5);
+  cursor: pointer;
+}
+
+a.comp-link:hover {
+  color: var(--vscode-textLink-foreground, #3794ff);
+  border-bottom-color: currentColor;
+}
+
+.detail-head {
+  padding: 14px 14px 0;
+}
+
+.detail-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-name {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.detail-head .type {
+  font-size: 11px;
+  opacity: 0.7;
+  text-transform: lowercase;
+}
+
+.back {
+  background: rgba(128, 128, 128, 0.14);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 4px;
+  color: var(--vscode-foreground);
+  cursor: pointer;
+  font-size: 11.5px;
+  padding: 3px 9px;
+}
+
+.back:hover {
+  background: rgba(128, 128, 128, 0.26);
+}
+
+.detail-path {
+  margin-top: 4px;
+  font-size: 11.5px;
+  opacity: 0.6;
+}
+
+.detail-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.detail-sub .chip {
+  font-size: 11px;
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.16);
+  opacity: 0.85;
+}
+
+.detail-sub .chip b {
+  font-variant-numeric: tabular-nums;
+  margin-left: 3px;
+}
+
+.detail-sub .chip.warn {
+  background: rgba(220, 160, 30, 0.2);
+  color: #d9a227;
+  opacity: 1;
+}
+
+.subtabs {
+  display: flex;
+  gap: 2px;
+  margin-top: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.28);
+}
+
+.subtab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--vscode-foreground);
+  opacity: 0.7;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.subtab:hover {
+  opacity: 1;
+}
+
+.subtab.active {
+  opacity: 1;
+  border-bottom-color: var(--vscode-focusBorder, #007acc);
+  font-weight: 600;
+}
+
+.subtab .count {
+  font-size: 10.5px;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: rgba(128, 128, 128, 0.22);
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-body .table-foot {
+  padding-left: 14px;
+}

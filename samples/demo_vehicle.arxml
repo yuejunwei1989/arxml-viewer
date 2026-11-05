@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00049.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>Interfaces</SHORT-NAME>
+      <ELEMENTS>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>VehicleSpeed_I</SHORT-NAME>
+          <IS-SERVICE>false</IS-SERVICE>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>VehicleSpeed</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/VehicleSpeed_T</TYPE-TREF>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>EngineSpeed_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>EngineSpeed</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>EngineSpeedValid</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>ThrottlePosition_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>ThrottlePosition</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>GearPosition_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>Gear</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>BrakePressure_I</SHORT-NAME>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>BrakePressure</SHORT-NAME>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+        <CLIENT-SERVER-INTERFACE>
+          <SHORT-NAME>DiagnosticService_I</SHORT-NAME>
+          <OPERATIONS>
+            <CLIENT-SERVER-OPERATION>
+              <SHORT-NAME>ReadDtc</SHORT-NAME>
+            </CLIENT-SERVER-OPERATION>
+            <CLIENT-SERVER-OPERATION>
+              <SHORT-NAME>ClearDtc</SHORT-NAME>
+            </CLIENT-SERVER-OPERATION>
+          </OPERATIONS>
+        </CLIENT-SERVER-INTERFACE>
+      </ELEMENTS>
+    </AR-PACKAGE>
+
+    <AR-PACKAGE>
+      <SHORT-NAME>Components</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE>
+          <SHORT-NAME>Powertrain</SHORT-NAME>
+          <ELEMENTS>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>EngineControl</SHORT-NAME>
+              <PORTS>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>EngineSpeed_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/EngineSpeed_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>ThrottlePosition_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/ThrottlePosition_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>VehicleSpeed_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/VehicleSpeed_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>Diag_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/Interfaces/DiagnosticService_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>Unused_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/BrakePressure_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>TransmissionControl</SHORT-NAME>
+              <PORTS>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>EngineSpeed_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/EngineSpeed_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>ThrottlePosition_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/ThrottlePosition_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>GearPosition_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/GearPosition_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <AR-PACKAGE>
+          <SHORT-NAME>Chassis</SHORT-NAME>
+          <ELEMENTS>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>WheelSpeedSensor</SHORT-NAME>
+              <PORTS>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>VehicleSpeed_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/VehicleSpeed_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>ABSCtrl</SHORT-NAME>
+              <PORTS>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>VehicleSpeed_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/VehicleSpeed_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>BrakePressure_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/BrakePressure_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>BrakePressure_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/BrakePressure_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>BrakeActuator</SHORT-NAME>
+              <PORTS>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>BrakePressure_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/BrakePressure_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <AR-PACKAGE>
+          <SHORT-NAME>Services</SHORT-NAME>
+          <ELEMENTS>
+            <SERVICE-SW-COMPONENT-TYPE>
+              <SHORT-NAME>Dcm</SHORT-NAME>
+              <PORTS>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>Diag_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/Interfaces/DiagnosticService_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>VehicleSpeed_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/VehicleSpeed_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+            </SERVICE-SW-COMPONENT-TYPE>
+            <SERVICE-SW-COMPONENT-TYPE>
+              <SHORT-NAME>Dem</SHORT-NAME>
+              <PORTS>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>EngineSpeed_P</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/EngineSpeed_I</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>Diag_R</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/Interfaces/DiagnosticService_I</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+            </SERVICE-SW-COMPONENT-TYPE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+
+    <AR-PACKAGE>
+      <SHORT-NAME>Compositions</SHORT-NAME>
+      <ELEMENTS>
+        <COMPOSITION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>PowertrainSystem</SHORT-NAME>
+          <PORTS>
+            <P-PORT-PROTOTYPE>
+              <SHORT-NAME>GearPosition_P</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/GearPosition_I</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE>
+              <SHORT-NAME>VehicleSpeed_R</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/Interfaces/VehicleSpeed_I</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+          </PORTS>
+          <COMPONENTS>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Engine</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/Components/Powertrain/EngineControl</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Transmission</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/Components/Powertrain/TransmissionControl</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+          <CONNECTORS>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>Engine_Transmission_EngineSpeed</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Compositions/PowertrainSystem/Engine</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Compositions/PowertrainSystem/Engine/EngineSpeed_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Compositions/PowertrainSystem/Transmission</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Compositions/PowertrainSystem/Transmission/EngineSpeed_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>Engine_Transmission_Throttle</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Compositions/PowertrainSystem/Engine</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Compositions/PowertrainSystem/Engine/ThrottlePosition_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Compositions/PowertrainSystem/Transmission</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Compositions/PowertrainSystem/Transmission/ThrottlePosition_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+          </CONNECTORS>
+        </COMPOSITION-SW-COMPONENT-TYPE>
+      </ELEMENTS>
+    </AR-PACKAGE>
+
+    <AR-PACKAGE>
+      <SHORT-NAME>Vehicle</SHORT-NAME>
+      <ELEMENTS>
+        <COMPOSITION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>VehicleTop</SHORT-NAME>
+          <COMPONENTS>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Powertrain</SHORT-NAME>
+              <TYPE-TREF DEST="COMPOSITION-SW-COMPONENT-TYPE">/Compositions/PowertrainSystem</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>WheelSpeedSensorInst</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/Components/Chassis/WheelSpeedSensor</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>ABS</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/Components/Chassis/ABSCtrl</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Brake</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/Components/Chassis/BrakeActuator</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>DcmInst</SHORT-NAME>
+              <TYPE-TREF DEST="SERVICE-SW-COMPONENT-TYPE">/Components/Services/Dcm</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>DemInst</SHORT-NAME>
+              <TYPE-TREF DEST="SERVICE-SW-COMPONENT-TYPE">/Components/Services/Dem</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+          <CONNECTORS>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>Wheel_ABS</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/WheelSpeedSensorInst</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Vehicle/VehicleTop/WheelSpeedSensorInst/VehicleSpeed_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/ABS</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Vehicle/VehicleTop/ABS/VehicleSpeed_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>ABS_Brake</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/ABS</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Vehicle/VehicleTop/ABS/BrakePressure_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/Brake</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Vehicle/VehicleTop/Brake/BrakePressure_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>Wheel_Dcm</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/WheelSpeedSensorInst</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Vehicle/VehicleTop/WheelSpeedSensorInst/VehicleSpeed_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/DcmInst</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Vehicle/VehicleTop/DcmInst/VehicleSpeed_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>Dcm_Dem</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/DcmInst</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Vehicle/VehicleTop/DcmInst/Diag_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/DemInst</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Vehicle/VehicleTop/DemInst/Diag_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>Dem_ABS_EngineSpeed</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/DemInst</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="P-PORT-PROTOTYPE">/Vehicle/VehicleTop/DemInst/EngineSpeed_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="COMPONENT-PROTOTYPE">/Vehicle/VehicleTop/ABS</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF DEST="R-PORT-PROTOTYPE">/Vehicle/VehicleTop/ABS/BrakePressure_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <DELEGATION-SW-CONNECTOR>
+              <SHORT-NAME>Delegation_VehicleSpeed</SHORT-NAME>
+              <INNER-PORT-IREF>
+                <P-PORT-IN-COMPOSITION-REF DEST="P-PORT-PROTOTYPE">/Vehicle/VehicleTop/VehicleSpeed_R</P-PORT-IN-COMPOSITION-REF>
+              </INNER-PORT-IREF>
+              <OUTER-PORT-REF DEST="R-PORT-PROTOTYPE">/Compositions/PowertrainSystem/VehicleSpeed_R</OUTER-PORT-REF>
+            </DELEGATION-SW-CONNECTOR>
+          </CONNECTORS>
+        </COMPOSITION-SW-COMPONENT-TYPE>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

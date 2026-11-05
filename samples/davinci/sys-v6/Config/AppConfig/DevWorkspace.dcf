@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DCF ARSCHEMA="42R0_DEV">
+	<Version>1.0</Version>
+	<NAME>DevWorkspace</NAME>
+	<FILEREF>
+		<ARXML ROOTITEM="COMPONENTTYPE">ECUProjects/ClimateComposition.arxml</ARXML>
+	</FILEREF>
+</DCF>

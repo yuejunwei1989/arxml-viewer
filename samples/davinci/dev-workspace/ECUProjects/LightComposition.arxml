@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>ComponentTypes</SHORT-NAME>
+      <ELEMENTS>
+        <COMPOSITION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>LightComposition</SHORT-NAME>
+          <COMPONENTS>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Logic</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/ComponentTypes/LightControl</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Reader</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/ComponentTypes/SwitchReader</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+            <COMPONENT-PROTOTYPE>
+              <SHORT-NAME>Driver</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/ComponentTypes/LampDriver</TYPE-TREF>
+            </COMPONENT-PROTOTYPE>
+          </COMPONENTS>
+          <CONNECTORS>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>C_Reader_Logic</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF>/ComponentTypes/LightComposition/Reader</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF>/ComponentTypes/LightComposition/Reader/Switch_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF>/ComponentTypes/LightComposition/Logic</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF>/ComponentTypes/LightComposition/Logic/Switch_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR>
+              <SHORT-NAME>C_Logic_Driver</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF>/ComponentTypes/LightComposition/Logic</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF>/ComponentTypes/LightComposition/Logic/LampCmd_P</TARGET-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF>/ComponentTypes/LightComposition/Driver</CONTEXT-COMPONENT-REF>
+                <TARGET-PORT-REF>/ComponentTypes/LightComposition/Driver/LampCmd_R</TARGET-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+          </CONNECTORS>
+        </COMPOSITION-SW-COMPONENT-TYPE>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,8 @@
+# Sources are shipped compiled in out/; keep the package lean.
+src/**
+.shots/**
+*.vsix
+out/**/*.map
+samples/**
+tsconfig.json
+.gitignore

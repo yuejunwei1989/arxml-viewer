@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>Powertrain</SHORT-NAME>
+      <ELEMENTS>
+        <!-- duplicate of EngineControl, same AUTOSAR path: should be reported -->
+        <APPLICATION-SW-COMPONENT-TYPE>
+          <SHORT-NAME>EngineControl</SHORT-NAME>
+          <PORTS>
+            <P-PORT-PROTOTYPE>
+              <SHORT-NAME>EngineSpeed_P</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF>/Powertrain/EngineSpeed_I</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+          </PORTS>
+        </APPLICATION-SW-COMPONENT-TYPE>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

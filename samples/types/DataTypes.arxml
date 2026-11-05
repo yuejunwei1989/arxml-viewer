@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Data types + interface details sample.
+
+  Covers the four data type flavours the viewer understands:
+    APPLICATION-PRIMITIVE-DATA-TYPE  (with COMPU-METHOD / UNIT / limits)
+    APPLICATION-RECORD-DATA-TYPE     (struct members)
+    APPLICATION-ARRAY-DATA-TYPE      (element type)
+    IMPLEMENTATION-DATA-TYPE         (base type + category)
+  plus a client-server interface with IN/OUT arguments and a
+  sender-receiver interface with typed data elements.
+-->
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0">
+  <AR-PACKAGES>
+
+    <!-- ============ data types ============ -->
+    <AR-PACKAGE>
+      <SHORT-NAME>DataTypes</SHORT-NAME>
+      <ELEMENTS>
+
+        <APPLICATION-PRIMITIVE-DATA-TYPE>
+          <SHORT-NAME>VehicleSpeed_T</SHORT-NAME>
+          <CATEGORY>VALUE</CATEGORY>
+          <SW-DATA-DEF-PROPS>
+            <SW-DATA-DEF-PROPS-VARIANTS>
+              <SW-DATA-DEF-PROPS-CONDITIONAL>
+                <BASE-TYPE-REF DEST="SW-BASE-TYPE">/AUTOSAR_Platform/BaseTypes/uint16</BASE-TYPE-REF>
+                <COMPU-METHOD-REF DEST="COMPU-METHOD">/DataTypes/CompuMethods/kmh_CompuMethod</COMPU-METHOD-REF>
+                <UNIT-REF DEST="UNIT">/AUTOSAR_Platform/Units/kilometer_per_hour</UNIT-REF>
+              </SW-DATA-DEF-PROPS-CONDITIONAL>
+            </SW-DATA-DEF-PROPS-VARIANTS>
+          </SW-DATA-DEF-PROPS>
+          <DATA-CONSTR-REF DEST="DATA-CONSTR">/DataTypes/DataConstrs/Speed_DataConstr</DATA-CONSTR-REF>
+        </APPLICATION-PRIMITIVE-DATA-TYPE>
+
+        <APPLICATION-PRIMITIVE-DATA-TYPE>
+          <SHORT-NAME>EngineSpeed_T</SHORT-NAME>
+          <CATEGORY>VALUE</CATEGORY>
+          <SW-DATA-DEF-PROPS>
+            <SW-DATA-DEF-PROPS-VARIANTS>
+              <SW-DATA-DEF-PROPS-CONDITIONAL>
+                <BASE-TYPE-REF DEST="SW-BASE-TYPE">/AUTOSAR_Platform/BaseTypes/uint16</BASE-TYPE-REF>
+                <UNIT-REF DEST="UNIT">/AUTOSAR_Platform/Units/rpm</UNIT-REF>
+              </SW-DATA-DEF-PROPS-CONDITIONAL>
+            </SW-DATA-DEF-PROPS-VARIANTS>
+          </SW-DATA-DEF-PROPS>
+        </APPLICATION-PRIMITIVE-DATA-TYPE>
+
+        <APPLICATION-PRIMITIVE-DATA-TYPE>
+          <SHORT-NAME>Temperature_T</SHORT-NAME>
+          <CATEGORY>VALUE</CATEGORY>
+          <SW-DATA-DEF-PROPS>
+            <SW-DATA-DEF-PROPS-VARIANTS>
+              <SW-DATA-DEF-PROPS-CONDITIONAL>
+                <BASE-TYPE-REF DEST="SW-BASE-TYPE">/AUTOSAR_Platform/BaseTypes/sint16</BASE-TYPE-REF>
+                <UNIT-REF DEST="UNIT">/AUTOSAR_Platform/Units/degree_Celsius</UNIT-REF>
+              </SW-DATA-DEF-PROPS-CONDITIONAL>
+            </SW-DATA-DEF-PROPS-VARIANTS>
+          </SW-DATA-DEF-PROPS>
+        </APPLICATION-PRIMITIVE-DATA-TYPE>
+
+        <APPLICATION-PRIMITIVE-DATA-TYPE>
+          <SHORT-NAME>Boolean_T</SHORT-NAME>
+          <CATEGORY>VALUE</CATEGORY>
+          <SW-DATA-DEF-PROPS>
+            <SW-DATA-DEF-PROPS-VARIANTS>
+              <SW-DATA-DEF-PROPS-CONDITIONAL>
+                <BASE-TYPE-REF DEST="SW-BASE-TYPE">/AUTOSAR_Platform/BaseTypes/boolean</BASE-TYPE-REF>
+              </SW-DATA-DEF-PROPS-CONDITIONAL>
+            </SW-DATA-DEF-PROPS-VARIANTS>
+          </SW-DATA-DEF-PROPS>
+        </APPLICATION-PRIMITIVE-DATA-TYPE>
+
+        <!-- record: a struct of the primitive types above -->
+        <APPLICATION-RECORD-DATA-TYPE>
+          <SHORT-NAME>VehicleStatus_T</SHORT-NAME>
+          <CATEGORY>STRUCTURE</CATEGORY>
+          <SUB-ELEMENTS>
+            <APPLICATION-RECORD-ELEMENT>
+              <SHORT-NAME>Speed</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/VehicleSpeed_T</TYPE-TREF>
+            </APPLICATION-RECORD-ELEMENT>
+            <APPLICATION-RECORD-ELEMENT>
+              <SHORT-NAME>EngineSpeed</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/EngineSpeed_T</TYPE-TREF>
+            </APPLICATION-RECORD-ELEMENT>
+            <APPLICATION-RECORD-ELEMENT>
+              <SHORT-NAME>CoolantTemp</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/Temperature_T</TYPE-TREF>
+            </APPLICATION-RECORD-ELEMENT>
+            <APPLICATION-RECORD-ELEMENT>
+              <SHORT-NAME>IsRunning</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/Boolean_T</TYPE-TREF>
+            </APPLICATION-RECORD-ELEMENT>
+          </SUB-ELEMENTS>
+        </APPLICATION-RECORD-DATA-TYPE>
+
+        <!-- array: 8 wheel speeds -->
+        <APPLICATION-ARRAY-DATA-TYPE>
+          <SHORT-NAME>WheelSpeedArray_T</SHORT-NAME>
+          <CATEGORY>ARRAY</CATEGORY>
+          <SUB-ELEMENTS>
+            <APPLICATION-ARRAY-ELEMENT>
+              <SHORT-NAME>WheelSpeed</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/VehicleSpeed_T</TYPE-TREF>
+            </APPLICATION-ARRAY-ELEMENT>
+          </SUB-ELEMENTS>
+        </APPLICATION-ARRAY-DATA-TYPE>
+
+        <!-- implementation data type used by the C/S interface -->
+        <IMPLEMENTATION-DATA-TYPE>
+          <SHORT-NAME>DiagRequest_T</SHORT-NAME>
+          <CATEGORY>VALUE</CATEGORY>
+          <SW-DATA-DEF-PROPS>
+            <SW-DATA-DEF-PROPS-VARIANTS>
+              <SW-DATA-DEF-PROPS-CONDITIONAL>
+                <BASE-TYPE-REF DEST="SW-BASE-TYPE">/AUTOSAR_Platform/BaseTypes/uint8</BASE-TYPE-REF>
+              </SW-DATA-DEF-PROPS-CONDITIONAL>
+            </SW-DATA-DEF-PROPS-VARIANTS>
+          </SW-DATA-DEF-PROPS>
+        </IMPLEMENTATION-DATA-TYPE>
+
+        <IMPLEMENTATION-DATA-TYPE>
+          <SHORT-NAME>DiagResult_T</SHORT-NAME>
+          <CATEGORY>VALUE</CATEGORY>
+          <SW-DATA-DEF-PROPS>
+            <SW-DATA-DEF-PROPS-VARIANTS>
+              <SW-DATA-DEF-PROPS-CONDITIONAL>
+                <BASE-TYPE-REF DEST="SW-BASE-TYPE">/AUTOSAR_Platform/BaseTypes/uint8</BASE-TYPE-REF>
+              </SW-DATA-DEF-PROPS-CONDITIONAL>
+            </SW-DATA-DEF-PROPS-VARIANTS>
+          </SW-DATA-DEF-PROPS>
+        </IMPLEMENTATION-DATA-TYPE>
+
+      </ELEMENTS>
+    </AR-PACKAGE>
+
+    <!-- ============ interfaces ============ -->
+    <AR-PACKAGE>
+      <SHORT-NAME>Interfaces</SHORT-NAME>
+      <ELEMENTS>
+
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>VehicleStatus_I</SHORT-NAME>
+          <IS-SERVICE>false</IS-SERVICE>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>Status</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-RECORD-DATA-TYPE">/DataTypes/VehicleStatus_T</TYPE-TREF>
+            </VARIABLE-DATA-PROTOTYPE>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>WheelSpeeds</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-ARRAY-DATA-TYPE">/DataTypes/WheelSpeedArray_T</TYPE-TREF>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+
+        <SENDER-RECEIVER-INTERFACE>
+          <SHORT-NAME>VehicleSpeed_I</SHORT-NAME>
+          <IS-SERVICE>false</IS-SERVICE>
+          <DATA-ELEMENTS>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>VehicleSpeed</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/VehicleSpeed_T</TYPE-TREF>
+              <INIT-VALUE>
+                <NUMERICAL-VALUE-SPECIFICATION>
+                  <VALUE>0</VALUE>
+                </NUMERICAL-VALUE-SPECIFICATION>
+              </INIT-VALUE>
+            </VARIABLE-DATA-PROTOTYPE>
+            <VARIABLE-DATA-PROTOTYPE>
+              <SHORT-NAME>SpeedValid</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/DataTypes/Boolean_T</TYPE-TREF>
+            </VARIABLE-DATA-PROTOTYPE>
+          </DATA-ELEMENTS>
+        </SENDER-RECEIVER-INTERFACE>
+
+        <!-- client-server with IN / OUT arguments -->
+        <CLIENT-SERVER-INTERFACE>
+          <SHORT-NAME>Diagnostics_I</SHORT-NAME>
+          <IS-SERVICE>true</IS-SERVICE>
+          <OPERATIONS>
+            <CLIENT-SERVER-OPERATION>
+              <SHORT-NAME>ReadFaultMemory</SHORT-NAME>
+              <ARGUMENTS>
+                <ARGUMENT-DATA-PROTOTYPE>
+                  <SHORT-NAME>requestId</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/DataTypes/DiagRequest_T</TYPE-TREF>
+                  <DIRECTION>IN</DIRECTION>
+                </ARGUMENT-DATA-PROTOTYPE>
+                <ARGUMENT-DATA-PROTOTYPE>
+                  <SHORT-NAME>result</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/DataTypes/DiagResult_T</TYPE-TREF>
+                  <DIRECTION>OUT</DIRECTION>
+                </ARGUMENT-DATA-PROTOTYPE>
+              </ARGUMENTS>
+            </CLIENT-SERVER-OPERATION>
+            <CLIENT-SERVER-OPERATION>
+              <SHORT-NAME>ClearFaultMemory</SHORT-NAME>
+              <ARGUMENTS>
+                <ARGUMENT-DATA-PROTOTYPE>
+                  <SHORT-NAME>groupId</SHORT-NAME>
+                  <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/DataTypes/DiagRequest_T</TYPE-TREF>
+                  <DIRECTION>IN</DIRECTION>
+                </ARGUMENT-DATA-PROTOTYPE>
+              </ARGUMENTS>
+            </CLIENT-SERVER-OPERATION>
+          </OPERATIONS>
+        </CLIENT-SERVER-INTERFACE>
+
+      </ELEMENTS>
+    </AR-PACKAGE>
+
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,15 @@
+{
+  "$schema": "../Output/Schema/ArxmlProjectContent.schema.json",
+  "appComponents": {
+    "directories": [ "../Config/AppComponents" ]
+  },
+  "softwareComponents": {
+    "directories": [ "../Config/AppComponents" ]
+  },
+  "platformTypes": {
+    "files": [ "../Config/AUTOSAR/PlatformTypes.arxml" ]
+  },
+  "internalBehavior": {
+    "directory": "../Output/Config/InternalBehavior"
+  }
+}

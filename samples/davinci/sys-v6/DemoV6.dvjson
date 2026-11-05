@@ -1,0 +1,5 @@
+{
+  "arxmlProjectContent": "./Settings/ArxmlProjectContent.json",
+  "misc": "./Settings/Misc.json",
+  "general": "./Settings/General.json"
+}

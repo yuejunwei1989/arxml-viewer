@@ -1,0 +1,7 @@
+{
+  "$schema": "../Output/Schema/General.schema.json",
+  "name": "DemoV6",
+  "references": {
+    "dvWorkspace": "../Config/AppConfig/DevWorkspace.dcf"
+  }
+}

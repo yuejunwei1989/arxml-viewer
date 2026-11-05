@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DCF ARSCHEMA="40R2_DEV">
+	<Version>1.0</Version>
+	<NAME>DevWorkspace</NAME>
+	<FILEREF>
+		<ARXML ROOTITEM="COMPONENTTYPE">ECUProjects/DoorComposition.arxml</ARXML>
+	</FILEREF>
+</DCF>
